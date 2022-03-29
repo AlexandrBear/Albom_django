@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1>Удаление Фото</h1>
+<h1>{{photo.id}}</h1>
+<h1>{{album.id}}</h1>
+
+
+<form method="POST" >
+    {% csrf_token %}
+    <button type="submit">Удалить фото</button>
+</form>
+
+{% endblock %}

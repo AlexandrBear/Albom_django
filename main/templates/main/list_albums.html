@@ -1,0 +1,44 @@
+
+<p class="link-add-video"><a href="{% url 'video_list' %}">Все видео</a></p>
+
+{% for p in album %}
+    <li>
+        <div class="article-panel">
+            <p class="first">{{ p.title }}</p>
+            <p class="last">Дата: {{ p.time_create }}</p></div>
+
+        {% for img in photo %}
+        {% if p.pk == img.album_id %}
+        <img class="logo" src="{{ img.photo.url }}">
+        {% endif %}
+        {% endfor %}
+
+        <p class="link-read-post"><a href="{{ p.get_absolute_url }}">Смотреть альбом</a></p>
+    </li>
+    {% endfor %}
+
+{% if page_obj.has_other_pages %}
+ <nav class="list-pages">
+        <ul>
+            {% if page_obj.has_previous %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                </li>
+            {% endif %}
+            {% for page in paginator.page_range %}
+                {% if page == page_obj.number %}
+                    <li class="page-num-selected">{{ page }}</li>
+                {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:3 %}
+                    <li class="page-num">
+                        <a href="?page={{page}}">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

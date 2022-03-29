@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>{{ album.title }}</h1>
+
+
+
+<p class="link-read-post"><a href="{% url 'photo' album.id %}">Добавить медиа</a></p>
+<p class="link-read-post"><a href="{% url 'qrcode' album.id %}">Получить QR код</a></p>
+
+{% for p in photo %}
+    <div class="big">
+        <div class="one">
+            <img class="photo" src="{{ p.photo.url }}">
+            {% if p.video %}
+                <img class="photo1" src="{% static 'main/images/check_mark.png' %}">
+            {% else %}
+                <img class="photo1" src="{% static 'main/images/cross.png' %}">
+            {% endif %}
+        </div>
+        <div class="two">
+            <p class="link-delete-post">
+            <a href="{% url 'delete_photo' p.pk %}">Удалить фото</a></p>
+            <p class="link-add-video">
+            <a href="{% url 'add_video' p.pk %}">Добавить видео</a></p>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

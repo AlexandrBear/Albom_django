@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<h1>Видео</h1>
+<p><img class="photo" src="{{ video.photo.url }}"></p>
+<video
+    id="my-video"
+    class="video-js"
+    poster="{{ video.photo.url }}"
+    controls
+    src="{{video.video.url}}"
+    preload="auto"
+    width="400"
+    height="300"
+    data-setup="{}"
+    >
+    <source src="{% url 'stream' video.id %}" type="video/"/>
+    <source src="{% url 'stream' video.id %}" type="video/webm"/>
+</video>
+
+{% endblock %}
